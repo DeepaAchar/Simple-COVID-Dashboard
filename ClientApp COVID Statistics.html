@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>COVID Dashboard</title>
+	
+</head>
+<body>
+	<form style "border-left-width"= 100>	
+		<h2>Simple COVID Dashboard</h2><br>
+		
+		<label> Click this button to get the latest COVID case information! </label>		
+		<input type="button" id="button" name="getInfo" value="Click Here" onclick="getDetails();" ><br>
+		<label> Last updated date = 
+			<text id="date"> yyyy-mm-dd </text>
+		</label>
+		
+		
+		<dl>
+			<dt> Confirmed Cases </dt>
+			<dd id="confirmedCases"> 0 </dd>
+			<dt> Dead </dt>
+			<dd id="deathCases"> 0 </dd>
+			<dt> Recovered Cases </dt>
+			<dd id="recoveredCases"> 0 </dd>
+		</dl>	
+	</form>
+		
+    <script>		
+		async function getDetails(){
+			
+			//const url = "https://covid.mathdro.id/api/";
+			const url = "https://covid19.mathdro.id/api/countries/India";
+			
+			fetch(url)           //api for the get request
+			  .then(response => response.json())
+			  .then(data => {
+								console.log(data);
+								
+								var lDateTime = data.lastUpdate;
+								console.log(lDateTime);
+								lDate = lDateTime.slice(0,10)
+								document.getElementById("date").innerHTML = lDate;
+								
+								var confirmed = data.confirmed.value;
+								console.log("confirmed: " + confirmed);
+								document.getElementById("confirmedCases").innerHTML = confirmed;
+								
+								var deaths = data.deaths.value;
+								console.log("deaths: " + deaths);
+								document.getElementById("deathCases").innerHTML = deaths;
+								
+								var recovered = data.recovered.value;
+								console.log("recovered: " + recovered);
+								document.getElementById("recoveredCases").innerHTML = recovered;
+								
+				});
+		  
+		}
+    </script>
+	
+</body>
+</html>
